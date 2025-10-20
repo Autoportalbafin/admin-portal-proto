@@ -14,8 +14,10 @@ import {
   Shield,
   FileText,
   Globe,
-  AlertCircle
+  AlertCircle,
+  IdCard
 } from "lucide-react";
+import idCardImage from "@/assets/id-card-beneficiary.jpeg";
 
 type Language = "fr" | "sk";
 
@@ -50,6 +52,8 @@ const translations = {
     step2Desc: "Comptes émetteur et bénéficiaire vérifiés",
     step3Title: "Contrôle de conformité",
     step3Desc: "Transaction conforme aux régulations en vigueur",
+    idDocument: "Document d'Identité du Bénéficiaire",
+    idVerified: "Vérifiée et Approuvée",
     privacyPolicy: "Politique de Confidentialité",
     privacyContent: "Conformément au RGPD, vos données personnelles sont traitées de manière sécurisée et confidentielle. Les informations collectées sont utilisées uniquement pour le traitement de votre transaction et ne sont pas partagées avec des tiers sans votre consentement. Vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ces droits, veuillez contacter notre service de protection des données.",
     accessibilityStatement: "Déclaration d'Accessibilité",
@@ -91,6 +95,8 @@ const translations = {
     step2Desc: "Účty odosielateľa a príjemcu overené",
     step3Title: "Kontrola súladu",
     step3Desc: "Transakcia v súlade s platnými predpismi",
+    idDocument: "Doklad Totožnosti Príjemcu",
+    idVerified: "Overená a Schválená",
     privacyPolicy: "Zásady Ochrany Osobných Údajov",
     privacyContent: "V súlade s GDPR sú vaše osobné údaje spracovávané bezpečným a dôverným způsobom. Zhromaždené informácie sa používajú výlučne na spracovanie vašej transakcie a nie sú zdieľané s tretími stranami bez vášho súhlasu. Máte právo na prístup, opravu a vymazanie svojich údajov. Pre uplatnenie týchto práv kontaktujte našu službu ochrany údajov.",
     accessibilityStatement: "Vyhlásenie o Prístupnosti",
@@ -266,6 +272,37 @@ const Index = () => {
                         <span className="font-semibold">{t.totalFees}</span>
                         <span className="font-bold text-warning-text">203,00 €</span>
                       </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <Separator />
+
+              {/* Identity Document */}
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <IdCard className="h-5 w-5 text-primary" aria-hidden="true" />
+                  <h3 className="text-lg font-semibold">{t.idDocument}</h3>
+                </div>
+                <Card className="bg-success-bg border-2 border-success-text/30 overflow-hidden">
+                  <CardContent className="p-0">
+                    <div className="relative">
+                      <img 
+                        src={idCardImage} 
+                        alt="Identity document of Liptáková Michaela - Slovak ID card"
+                        className="w-full h-auto"
+                      />
+                      <Badge className="absolute top-4 right-4 bg-success-text text-white border-0 text-base px-4 py-2 gap-2 shadow-lg">
+                        <CheckCircle2 className="h-5 w-5" aria-hidden="true" />
+                        {t.approved}
+                      </Badge>
+                    </div>
+                    <div className="p-4 bg-white">
+                      <p className="text-sm text-success-text font-semibold flex items-center gap-2">
+                        <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
+                        {t.idVerified}
+                      </p>
                     </div>
                   </CardContent>
                 </Card>
