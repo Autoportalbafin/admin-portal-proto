@@ -33,6 +33,7 @@ const translations = {
     beneficiary: "Bénéficiaire (Destination)",
     fees: "Frais de Traitement",
     feesBreakdown: "Ventilation des Frais",
+    unpaid: "NON PAYÉ",
     feesExplanation: "Ces frais correspondent aux coûts de vérification et de traitement de la transaction. Ils comprennent la TVA au taux légal de 20%.",
     baseAmount: "Montant HT",
     vat: "TVA (20%)",
@@ -76,6 +77,7 @@ const translations = {
     beneficiary: "Príjemca (Cieľ)",
     fees: "Poplatky za Spracovanie",
     feesBreakdown: "Rozdelenie Poplatkov",
+    unpaid: "NEPLATENÉ",
     feesExplanation: "Tieto poplatky zodpovedajú nákladom na overenie a zpracovanie transakcie. Zahŕňajú DPH v zákonnej sadzbe 20%.",
     baseAmount: "Suma bez DPH",
     vat: "DPH (20%)",
@@ -251,26 +253,32 @@ const Index = () => {
 
               {/* Fees Breakdown */}
               <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <Info className="h-5 w-5 text-primary" aria-hidden="true" />
-                  <h3 className="text-lg font-semibold">{t.feesBreakdown}</h3>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <Info className="h-5 w-5 text-primary" aria-hidden="true" />
+                    <h3 className="text-lg font-semibold">{t.feesBreakdown}</h3>
+                  </div>
+                  <Badge className="bg-[hsl(var(--unpaid-text))] text-white border-0 px-3 py-1 gap-1.5">
+                    <AlertCircle className="h-4 w-4" aria-hidden="true" />
+                    {t.unpaid}
+                  </Badge>
                 </div>
-                <Card className="bg-warning-bg border-warning-text/20">
+                <Card className="bg-[hsl(var(--unpaid-bg))] border-2 border-[hsl(var(--unpaid-border))]">
                   <CardContent className="pt-6 space-y-4">
-                    <p className="text-sm text-foreground/80">{t.feesExplanation}</p>
+                    <p className="text-sm text-foreground/90 font-medium">{t.feesExplanation}</p>
                     <div className="space-y-2">
                       <div className="flex justify-between items-center">
-                        <span className="text-muted-foreground">{t.baseAmount}</span>
-                        <span className="font-semibold">169,17 €</span>
+                        <span className="text-foreground/70">{t.baseAmount}</span>
+                        <span className="font-semibold text-[hsl(var(--unpaid-text))]">169,17 €</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-muted-foreground">{t.vat}</span>
-                        <span className="font-semibold">33,83 €</span>
+                        <span className="text-foreground/70">{t.vat}</span>
+                        <span className="font-semibold text-[hsl(var(--unpaid-text))]">33,83 €</span>
                       </div>
-                      <Separator />
-                      <div className="flex justify-between items-center text-lg">
-                        <span className="font-semibold">{t.totalFees}</span>
-                        <span className="font-bold text-warning-text">203,00 €</span>
+                      <Separator className="bg-[hsl(var(--unpaid-border))]/30" />
+                      <div className="flex justify-between items-center text-lg pt-2">
+                        <span className="font-bold text-foreground">{t.totalFees}</span>
+                        <span className="font-bold text-[hsl(var(--unpaid-text))] text-xl">203,00 €</span>
                       </div>
                     </div>
                   </CardContent>

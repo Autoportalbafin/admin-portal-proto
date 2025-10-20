@@ -44,6 +44,9 @@ All colors MUST be HSL.
     --success-text: 142 76% 36%;
     --warning-bg: 38 92% 94%;
     --warning-text: 38 92% 40%;
+    --unpaid-bg: 0 84% 95%;
+    --unpaid-text: 0 84% 40%;
+    --unpaid-border: 0 84% 60%;
 
     --sidebar-background: 0 0% 98%;
 
@@ -97,6 +100,9 @@ All colors MUST be HSL.
     --success-text: 142 76% 80%;
     --warning-bg: 38 92% 20%;
     --warning-text: 38 92% 80%;
+    --unpaid-bg: 0 62% 20%;
+    --unpaid-text: 0 84% 80%;
+    --unpaid-border: 0 84% 50%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
