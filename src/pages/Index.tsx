@@ -121,312 +121,129 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="institutional-gradient text-primary-foreground shadow-lg">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Shield className="h-8 w-8" aria-hidden="true" />
-              <div>
-                <h1 className="text-2xl font-bold">{t.title}</h1>
-                <p className="text-sm opacity-90">{t.subtitle}</p>
+    <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-b from-[#f7f9fb] to-[#f1f5f9]">
+      <div className="w-full max-w-[900px]">
+        <div className="bg-white rounded-lg shadow-[0_8px_24px_rgba(11,43,74,0.08)] overflow-hidden border border-[rgba(11,43,74,0.06)]">
+          {/* Header */}
+          <header className="bg-gradient-to-r from-[#0b2b4a] to-[#143852] text-white p-5 flex gap-4 items-center flex-wrap">
+            <div className="flex-1 flex items-center gap-4">
+              <div className="w-[72px] h-[72px] bg-gradient-to-b from-[#0f3b63] to-[#09263e] rounded-lg flex items-center justify-center font-bold text-[10px]">
+                LOGO
+              </div>
+              <div className="leading-tight">
+                <div className="text-xs opacity-95 tracking-wider">Service de Contrôle — (Simulation)</div>
+                <div className="text-sm font-bold mt-1.5">Ministère de l'Économie et des Finances — (Simulation)</div>
+                <div className="text-xs opacity-90 mt-1.5">
+                  <strong>DOCUMENT SIMULÉ — NON OFFICIEL</strong>
+                </div>
               </div>
             </div>
-            <Button 
-              onClick={toggleLanguage}
-              variant="secondary"
-              size="sm"
-              className="gap-2 font-semibold"
-              aria-label={`Switch to ${lang === "fr" ? "Slovak" : "French"}`}
-            >
-              <Globe className="h-4 w-4" aria-hidden="true" />
-              {t.languageToggle}
-            </Button>
-          </div>
-        </div>
-      </header>
+            <div className="bg-[#ffdede] text-[#7a1b1b] px-2.5 py-1.5 rounded-md font-bold text-[13px]">
+              SIMULATION — DOCUMENT NON OFFICIEL
+            </div>
+          </header>
 
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-8 space-y-6">
-        {/* Transaction Details */}
-        <section aria-labelledby="transaction-heading">
-          <Card className="shadow-md">
-            <CardHeader className="bg-muted/50">
-              <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle id="transaction-heading" className="text-2xl flex items-center gap-2">
-                    <FileText className="h-6 w-6" aria-hidden="true" />
-                    {t.transactionDetails}
-                  </CardTitle>
-                  <CardDescription className="mt-2">
-                    Transaction ID: TRX-2025-001672
-                  </CardDescription>
-                </div>
-                <Badge className="bg-success-bg text-success-text border-0 text-base px-4 py-2 gap-2">
-                  <CheckCircle2 className="h-5 w-5" aria-hidden="true" />
-                  {t.approved}
-                </Badge>
+          {/* Main Content */}
+          <main className="p-6">
+            <h1 className="text-[#0b2b4a] text-xl font-semibold mb-3.5">
+              Notification de suspension temporaire d'un ordre de virement
+            </h1>
+
+            <div className="flex gap-3 flex-wrap mb-4">
+              <div className="bg-[#e6eef8] text-[#0b2b4a] px-3 py-2 rounded-full font-semibold text-[13px]">
+                Référence : SIM-2025-0001
               </div>
-            </CardHeader>
-            <CardContent className="pt-6 space-y-6">
-              {/* Date and Amount */}
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="flex items-start gap-3 p-4 bg-muted/30 rounded-lg">
-                  <Calendar className="h-5 w-5 text-primary mt-0.5" aria-hidden="true" />
+              <div className="bg-[#e6eef8] text-[#0b2b4a] px-3 py-2 rounded-full font-semibold text-[13px]">
+                Date : <strong>29/10/2025</strong>
+              </div>
+            </div>
+
+            <section className="border-t border-[#eef2f6] pt-4.5">
+              <div className="grid md:grid-cols-2 gap-4.5">
+                <div className="bg-[#fbfdff] p-3.5 rounded-lg border border-[#eef3f8]">
+                  <h3 className="text-[13px] text-[#6b7280] mb-2">Informations du client</h3>
+                  <p className="font-semibold text-[#0f1724] text-[15px]">LONE JANET MORTENSEN</p>
+                  <p className="font-semibold mt-2">REVOLUT BANK UAB</p>
+                  <p className="font-bold mt-1.5">IBAN : LT87 3250 0551 0360 8347</p>
+                  <p className="font-bold mt-1.5">Ref : REVOLT21XXX</p>
+                  <p className="font-bold mt-2.5 text-[#0b2b4a]">Montant du crédit : 13 406 €</p>
+                </div>
+
+                <div className="bg-[#fbfdff] p-3.5 rounded-lg border border-[#eef3f8]">
+                  <h3 className="text-[13px] text-[#6b7280] mb-2">Banque chargée du transfert</h3>
+                  <p className="font-semibold text-[#0f1724] text-[15px]">ISMO PAY</p>
+                  <p className="font-bold mt-2">Compte émetteur : EUR 0163703574</p>
+                  <p className="text-[#6b7280] text-[13px] mt-2.5">
+                    Frais à payer indiqués : 765 € (taxe sur valeur ajoutée et traitement)
+                  </p>
+                </div>
+
+                <div className="md:col-span-2 bg-[#fbfdff] p-3.5 rounded-lg border border-[#eef3f8]">
+                  <h3 className="text-[13px] text-[#6b7280] mb-2">Motif de la suspension et frais AML</h3>
+                  <p className="font-semibold text-[#0f1724]">
+                    Cette mesure est prise dans le cadre des obligations de vigilance et de contrôle.
+                  </p>
+                  <div className="mt-2.5 text-[#6b7280] leading-relaxed">
+                    Pour des raisons liées à la confidentialité des procédures, nous ne sommes pas en mesure de fournir davantage de détails à ce stade. Conformément aux régulations européennes en matière de lutte contre le blanchiment de capitaux et le financement du terrorisme (Directive (UE) 2015/849 – AMLD), une taxe sur valeur ajoutée et de traitement de 765 € peut être appliquée pour couvrir les opérations de contrôle et de suivi des transactions financières.
+                  </div>
+                  <ul className="mt-2.5 text-[#6b7280] leading-relaxed list-disc pl-5">
+                    <li>Vérification de l'identité du bénéficiaire et de l'émetteur du virement</li>
+                    <li>Examen des documents justificatifs relatifs à l'origine des fonds</li>
+                    <li>Traitement administratif des alertes et anomalies détectées</li>
+                    <li>Mise en conformité avec les obligations nationales et européennes de vigilance financière</li>
+                  </ul>
+                  <div className="bg-[#fff8e6] border-l-4 border-[#f6c85f] p-3 rounded-md mt-3.5 text-sm text-[#5b4a00]">
+                    Sans régularisation ou fourniture des justificatifs demandés, le traitement complet de la transaction ne peut être finalisé.
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section className="border-t border-[#eef2f6] pt-4.5 mt-4.5">
+              <h2 className="text-base text-[#6b7280] mb-3">Sections</h2>
+              <div className="flex gap-3 flex-wrap">
+                <div className="flex gap-2.5 items-start bg-white rounded-lg p-3 border border-[#eef3f8] flex-1 min-w-[200px]">
+                  <Building2 className="w-7 h-7 flex-shrink-0 opacity-90 text-[#0b2b4a]" />
                   <div>
-                    <p className="text-sm text-muted-foreground font-medium">{t.date}</p>
-                    <p className="text-lg font-semibold">16 octobre 2025</p>
+                    <h4 className="text-[13px] text-[#6b7280] mb-0">Émetteur</h4>
+                    <p className="font-bold text-sm mt-1.5">ISMO PAY — Compte émetteur EUR 0163703574</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3 p-4 bg-muted/30 rounded-lg">
-                  <Euro className="h-5 w-5 text-primary mt-0.5" aria-hidden="true" />
+
+                <div className="flex gap-2.5 items-start bg-white rounded-lg p-3 border border-[#eef3f8] flex-1 min-w-[200px]">
+                  <User className="w-7 h-7 flex-shrink-0 opacity-90 text-[#0b2b4a]" />
                   <div>
-                    <p className="text-sm text-muted-foreground font-medium">{t.amount}</p>
-                    <p className="text-lg font-semibold">1 500,00 €</p>
+                    <h4 className="text-[13px] text-[#6b7280] mb-0">Bénéficiaire</h4>
+                    <p className="font-bold text-sm mt-1.5">LONE JANET MORTENSEN — REVOLUT BANK UAB</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-2.5 items-start bg-white rounded-lg p-3 border border-[#eef3f8] flex-1 min-w-[200px]">
+                  <FileText className="w-7 h-7 flex-shrink-0 opacity-90 text-[#0b2b4a]" />
+                  <div>
+                    <h4 className="text-[13px] text-[#6b7280] mb-0">Motif</h4>
+                    <p className="font-bold text-sm mt-1.5">Suspicion nécessitant vérifications AML — frais indiqués : 765 €</p>
                   </div>
                 </div>
               </div>
+            </section>
+          </main>
 
-              <Separator />
-
-              {/* Emitter and Beneficiary */}
-              <div className="grid lg:grid-cols-2 gap-6">
-                {/* Emitter */}
-                <Card className="bg-secondary/30 border-2">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg">
-                      <Building2 className="h-5 w-5" aria-hidden="true" />
-                      {t.emitter}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div>
-                      <p className="text-sm text-muted-foreground font-medium">{t.bank}</p>
-                      <p className="font-semibold">ORNT BANK</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground font-medium">{t.holder}</p>
-                      <p className="font-semibold">SULSKIENE ELEONORA</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground font-medium">{t.account}</p>
-                      <p className="font-mono font-semibold">EUR – 0172080430</p>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Beneficiary */}
-                <Card className="bg-secondary/30 border-2">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-lg">
-                      <User className="h-5 w-5" aria-hidden="true" />
-                      {t.beneficiary}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div>
-                      <p className="text-sm text-muted-foreground font-medium">{t.bank}</p>
-                      <p className="font-semibold">VÙB BANKA</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground font-medium">{t.holder}</p>
-                      <p className="font-semibold">Liptáková Michaela</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground font-medium">{t.address}</p>
-                      <p className="font-semibold">Krásny Brod 179</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground font-medium">{t.iban}</p>
-                      <p className="font-mono text-sm font-semibold">SK49 0200 0000 0031 7774 2054</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground font-medium">{t.bic}</p>
-                      <p className="font-mono font-semibold">SUBASKBX</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              <Separator />
-
-              {/* Fees Breakdown */}
+          {/* Footer */}
+          <footer className="p-3.5 bg-[#fbfdff] border-t border-[#eef2f6] flex justify-between gap-3 items-center text-[13px] text-[#6b7280] flex-wrap">
+            <div className="max-w-[70%]">
+              <div className="font-bold mb-1.5">Mentions légales</div>
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <Info className="h-5 w-5 text-primary" aria-hidden="true" />
-                    <h3 className="text-lg font-semibold">{t.feesBreakdown}</h3>
-                  </div>
-                  <Badge className="bg-[hsl(var(--unpaid-text))] text-white border-0 px-3 py-1 gap-1.5">
-                    <AlertCircle className="h-4 w-4" aria-hidden="true" />
-                    {t.unpaid}
-                  </Badge>
-                </div>
-                <Card className="bg-[hsl(var(--unpaid-bg))] border-2 border-[hsl(var(--unpaid-border))]">
-                  <CardContent className="pt-6 space-y-4">
-                    <p className="text-sm text-foreground/90 font-medium">{t.feesExplanation}</p>
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <span className="text-foreground/70">{t.baseAmount}</span>
-                        <span className="font-semibold text-[hsl(var(--unpaid-text))]">169,17 €</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-foreground/70">{t.vat}</span>
-                        <span className="font-semibold text-[hsl(var(--unpaid-text))]">33,83 €</span>
-                      </div>
-                      <Separator className="bg-[hsl(var(--unpaid-border))]/30" />
-                      <div className="flex justify-between items-center text-lg pt-2">
-                        <span className="font-bold text-foreground">{t.totalFees}</span>
-                        <span className="font-bold text-[hsl(var(--unpaid-text))] text-xl">203,00 €</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                Document <strong>simulé</strong> à titre informatif uniquement. Il n'a aucune valeur juridique et ne remplace aucune notification officielle.
               </div>
-
-              <Separator />
-
-              {/* Identity Document */}
-              <div>
-                <div className="flex items-center gap-2 mb-4">
-                  <IdCard className="h-5 w-5 text-primary" aria-hidden="true" />
-                  <h3 className="text-lg font-semibold">{t.idDocument}</h3>
-                </div>
-                <Card className="bg-success-bg border-2 border-success-text/30 overflow-hidden">
-                  <CardContent className="p-0">
-                    <div className="relative">
-                      <img 
-                        src={idCardImage} 
-                        alt="Identity document of Liptáková Michaela - Slovak ID card"
-                        className="w-full h-auto"
-                      />
-                      <Badge className="absolute top-4 right-4 bg-success-text text-white border-0 text-base px-4 py-2 gap-2 shadow-lg">
-                        <CheckCircle2 className="h-5 w-5" aria-hidden="true" />
-                        {t.approved}
-                      </Badge>
-                    </div>
-                    <div className="p-4 bg-white">
-                      <p className="text-sm text-success-text font-semibold flex items-center gap-2">
-                        <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
-                        {t.idVerified}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              <Separator />
-
-              {/* Verification Steps */}
-              <div>
-                <h3 className="text-lg font-semibold mb-4">{t.verificationSteps}</h3>
-                <div className="space-y-3">
-                  <div className="flex items-start gap-3 p-4 bg-success-bg rounded-lg border border-success-text/20">
-                    <CheckCircle2 className="h-5 w-5 text-success-text mt-0.5 flex-shrink-0" aria-hidden="true" />
-                    <div>
-                      <p className="font-semibold text-success-text">{t.step1Title}</p>
-                      <p className="text-sm text-foreground/80">{t.step1Desc}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3 p-4 bg-success-bg rounded-lg border border-success-text/20">
-                    <CheckCircle2 className="h-5 w-5 text-success-text mt-0.5 flex-shrink-0" aria-hidden="true" />
-                    <div>
-                      <p className="font-semibold text-success-text">{t.step2Title}</p>
-                      <p className="text-sm text-foreground/80">{t.step2Desc}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3 p-4 bg-success-bg rounded-lg border border-success-text/20">
-                    <CheckCircle2 className="h-5 w-5 text-success-text mt-0.5 flex-shrink-0" aria-hidden="true" />
-                    <div>
-                      <p className="font-semibold text-success-text">{t.step3Title}</p>
-                      <p className="text-sm text-foreground/80">{t.step3Desc}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-
-        {/* Legal Information */}
-        <section aria-labelledby="legal-heading">
-          <h2 id="legal-heading" className="sr-only">Legal Information</h2>
-          <Accordion type="single" collapsible className="space-y-4">
-            <AccordionItem value="privacy" className="border rounded-lg bg-card shadow-sm">
-              <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-muted/50">
-                <div className="flex items-center gap-2">
-                  <Shield className="h-5 w-5" aria-hidden="true" />
-                  <span className="font-semibold">{t.privacyPolicy}</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="px-6 pb-4">
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {t.privacyContent}
-                </p>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="accessibility" className="border rounded-lg bg-card shadow-sm">
-              <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-muted/50">
-                <div className="flex items-center gap-2">
-                  <Info className="h-5 w-5" aria-hidden="true" />
-                  <span className="font-semibold">{t.accessibilityStatement}</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="px-6 pb-4">
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {t.accessibilityContent}
-                </p>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="security" className="border rounded-lg bg-card shadow-sm">
-              <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-muted/50">
-                <div className="flex items-center gap-2">
-                  <Shield className="h-5 w-5" aria-hidden="true" />
-                  <span className="font-semibold">{t.securityNotice}</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="px-6 pb-4">
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {t.securityContent}
-                </p>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </section>
-
-        {/* Contact & Verification */}
-        <section aria-labelledby="contact-heading">
-          <Card className="shadow-md border-2 border-primary/20">
-            <CardHeader className="bg-primary/5">
-              <CardTitle id="contact-heading" className="flex items-center gap-2">
-                <AlertCircle className="h-5 w-5" aria-hidden="true" />
-                {t.contactVerification}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {t.contactInfo}
-              </p>
-            </CardContent>
-          </Card>
-        </section>
-      </main>
-
-      {/* Footer */}
-      <footer className="bg-primary text-primary-foreground mt-12">
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center space-y-2">
-            <p className="text-sm font-medium">{t.footer}</p>
-            <p className="text-xs opacity-80">{t.disclaimer}</p>
-            <p className="text-xs opacity-70 mt-4">
-              HTTPS • CSP Enabled • WCAG 2.1 AA Compliant
-            </p>
-          </div>
+            </div>
+            <div className="text-right">
+              <div className="text-[13px] text-[#6b7280]">Pour toute information complémentaire :</div>
+              <div className="font-bold text-[#0b2b4a] underline">Contact — Service de Simulation (exemple)</div>
+            </div>
+          </footer>
         </div>
-      </footer>
+      </div>
     </div>
   );
 };
