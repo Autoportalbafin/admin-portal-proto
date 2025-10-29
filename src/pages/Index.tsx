@@ -1,114 +1,174 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { 
-  CheckCircle2, 
-  Building2, 
-  User, 
-  Calendar, 
-  Euro, 
-  Info,
-  Shield,
-  FileText,
-  Globe,
-  AlertCircle,
-  IdCard
-} from "lucide-react";
-import idCardImage from "@/assets/id-card-beneficiary.jpeg";
+import { Building2, User, FileText, Shield, Lock, Globe } from "lucide-react";
+import tracfinnLogo from "@/assets/tracfinn-logo.jpeg";
 
-type Language = "fr" | "sk";
+type Language = "fr" | "en" | "da" | "de" | "lt";
 
 const translations = {
   fr: {
-    title: "Portail Administratif de Gestion",
-    subtitle: "Plateforme sécurisée de suivi des transactions",
-    languageToggle: "SK",
-    transactionDetails: "Détails de la Transaction",
-    date: "Date d'initialisation",
-    amount: "Montant",
+    organization: "TRACFINN",
+    subtitle: "Traitement du Renseignement et Action Contre les Circuits Financiers Clandestins",
+    languageLabel: "Langue",
+    title: "Notification de suspension temporaire d'un ordre de virement",
+    reference: "Référence",
+    date: "Date",
+    clientInfo: "Informations du client",
+    transferBank: "Banque chargée du transfert",
+    emitterAccount: "Compte émetteur",
+    feesToPay: "Frais à payer indiqués",
+    suspensionReason: "Motif de la suspension et frais AML",
+    reasonText: "Cette mesure est prise dans le cadre des obligations de vigilance et de contrôle.",
+    detailText: "Pour des raisons liées à la confidentialité des procédures, nous ne sommes pas en mesure de fournir davantage de détails à ce stade. Conformément aux régulations européennes en matière de lutte contre le blanchiment de capitaux et le financement du terrorisme (Directive (UE) 2015/849 – AMLD), une taxe sur valeur ajoutée et de traitement de 765 € peut être appliquée pour couvrir les opérations de contrôle et de suivi des transactions financières.",
+    verificationItems: [
+      "Vérification de l'identité du bénéficiaire et de l'émetteur du virement",
+      "Examen des documents justificatifs relatifs à l'origine des fonds",
+      "Traitement administratif des alertes et anomalies détectées",
+      "Mise en conformité avec les obligations nationales et européennes de vigilance financière"
+    ],
+    notice: "Sans régularisation ou fourniture des justificatifs demandés, le traitement complet de la transaction ne peut être finalisé.",
+    sections: "Sections",
     emitter: "Émetteur",
-    beneficiary: "Bénéficiaire (Destination)",
-    fees: "Frais de Traitement",
-    feesBreakdown: "Ventilation des Frais",
-    unpaid: "NON PAYÉ",
-    feesExplanation: "Ces frais correspondent aux coûts de vérification et de traitement de la transaction. Ils comprennent la TVA au taux légal de 20%.",
-    baseAmount: "Montant HT",
-    vat: "TVA (20%)",
-    totalFees: "Total TTC",
-    bank: "Banque",
-    holder: "Titulaire",
-    account: "Compte Émetteur",
-    address: "Adresse",
-    iban: "IBAN",
-    bic: "BIC/SWIFT",
-    status: "Statut",
-    approved: "APPROUVÉ",
-    verificationSteps: "Étapes de Vérification",
-    step1Title: "Vérification d'identité",
-    step1Desc: "Document d'identité du client vérifié et approuvé",
-    step2Title: "Validation des comptes",
-    step2Desc: "Comptes émetteur et bénéficiaire vérifiés",
-    step3Title: "Contrôle de conformité",
-    step3Desc: "Transaction conforme aux régulations en vigueur",
-    idDocument: "Document d'Identité du Bénéficiaire",
-    idVerified: "Vérifiée et Approuvée",
-    privacyPolicy: "Politique de Confidentialité",
-    privacyContent: "Conformément au RGPD, vos données personnelles sont traitées de manière sécurisée et confidentielle. Les informations collectées sont utilisées uniquement pour le traitement de votre transaction et ne sont pas partagées avec des tiers sans votre consentement. Vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ces droits, veuillez contacter notre service de protection des données.",
-    accessibilityStatement: "Déclaration d'Accessibilité",
-    accessibilityContent: "Ce portail est conforme aux normes WCAG 2.1 niveau AA. Nous nous engageons à offrir une expérience accessible à tous les utilisateurs, indépendamment de leurs capacités. Si vous rencontrez des difficultés d'accessibilité, veuillez nous contacter pour assistance.",
-    contactVerification: "Contact & Vérification",
-    contactInfo: "Pour toute procédure réelle ou question concernant cette transaction, veuillez contacter l'autorité compétente via les canaux officiels indiqués sur son site web. N'effectuez jamais de transaction financière sans vérification préalable.",
-    securityNotice: "Avis de Sécurité",
-    securityContent: "Cette plateforme utilise le protocole HTTPS et des mesures de sécurité conformes aux standards bancaires. Toutes les données sont chiffrées en transit et au repos. Une politique CSP (Content Security Policy) est appliquée pour renforcer la sécurité.",
-    footer: "Administration - Tous droits réservés",
-    disclaimer: "Ce portail est un prototype de démonstration. Pour toute procédure réelle, veuillez contacter les autorités compétentes.",
+    beneficiary: "Bénéficiaire",
+    reason: "Motif",
+    reasonShort: "Suspicion nécessitant vérifications AML — frais indiqués : 765 €",
+    legalTitle: "Mentions légales",
+    legalText: "Plateforme sécurisée de traitement des opérations financières. Toutes les données sont protégées conformément aux normes européennes.",
+    contactTitle: "Pour toute information complémentaire :",
+    contactLink: "Contact — Service TRACFINN",
+    securedBy: "Sécurisé par HTTPS",
+    encrypted: "Données chiffrées"
   },
-  sk: {
-    title: "Administratívny Portál Správy",
-    subtitle: "Zabezpečená platforma sledovania transakcií",
-    languageToggle: "FR",
-    transactionDetails: "Podrobnosti Transakcie",
-    date: "Dátum inicializácie",
-    amount: "Suma",
-    emitter: "Odosielateľ",
-    beneficiary: "Príjemca (Cieľ)",
-    fees: "Poplatky za Spracovanie",
-    feesBreakdown: "Rozdelenie Poplatkov",
-    unpaid: "NEPLATENÉ",
-    feesExplanation: "Tieto poplatky zodpovedajú nákladom na overenie a zpracovanie transakcie. Zahŕňajú DPH v zákonnej sadzbe 20%.",
-    baseAmount: "Suma bez DPH",
-    vat: "DPH (20%)",
-    totalFees: "Celkom s DPH",
-    bank: "Banka",
-    holder: "Držiteľ",
-    account: "Účet Odosielateľa",
-    address: "Adresa",
-    iban: "IBAN",
-    bic: "BIC/SWIFT",
-    status: "Stav",
-    approved: "SCHVÁLENÉ",
-    verificationSteps: "Kroky Overenia",
-    step1Title: "Overenie totožnosti",
-    step1Desc: "Doklad totožnosti klienta overený a schválený",
-    step2Title: "Validácia účtov",
-    step2Desc: "Účty odosielateľa a príjemcu overené",
-    step3Title: "Kontrola súladu",
-    step3Desc: "Transakcia v súlade s platnými predpismi",
-    idDocument: "Doklad Totožnosti Príjemcu",
-    idVerified: "Overená a Schválená",
-    privacyPolicy: "Zásady Ochrany Osobných Údajov",
-    privacyContent: "V súlade s GDPR sú vaše osobné údaje spracovávané bezpečným a dôverným způsobom. Zhromaždené informácie sa používajú výlučne na spracovanie vašej transakcie a nie sú zdieľané s tretími stranami bez vášho súhlasu. Máte právo na prístup, opravu a vymazanie svojich údajov. Pre uplatnenie týchto práv kontaktujte našu službu ochrany údajov.",
-    accessibilityStatement: "Vyhlásenie o Prístupnosti",
-    accessibilityContent: "Tento portál je v súlade s normami WCAG 2.1 úrovne AA. Zaväzujeme sa poskytovať prístupné prostredie všetkým používateľom bez ohľadu na ich schopnosti. Ak narazíte na problémy s prístupnosťou, kontaktujte nás pre pomoc.",
-    contactVerification: "Kontakt & Overenie",
-    contactInfo: "Pre akýkoľvek skutočný postup alebo otázky týkajúce sa tejto transakcie kontaktujte príslušný orgán prostredníctvom oficiálnych kanálov uvedených na jeho webovej stránke. Nikdy nevykonávajte finančnú transakciu bez predchádzajúceho overenia.",
-    securityNotice: "Bezpečnostné Oznámenie",
-    securityContent: "Táto platforma používa protokol HTTPS a bezpečnostné opatrenia v súlade s bankovými štandardmi. Všetky údaje sú šifrované počas prenosu a v pokoji. Politika CSP (Content Security Policy) je aplikovaná na posilnenie bezpečnosti.",
-    footer: "Administratíva - Všetky práva vyhradené",
-    disclaimer: "Tento portál je prototyp pre demonštračné účely. Pre akýkoľvek skutočný postup kontaktujte príslušné orgány.",
+  en: {
+    organization: "TRACFINN",
+    subtitle: "Intelligence Processing and Action Against Clandestine Financial Circuits",
+    languageLabel: "Language",
+    title: "Temporary Suspension Notification of a Transfer Order",
+    reference: "Reference",
+    date: "Date",
+    clientInfo: "Client Information",
+    transferBank: "Transfer Bank",
+    emitterAccount: "Sender Account",
+    feesToPay: "Fees to be paid indicated",
+    suspensionReason: "Reason for suspension and AML fees",
+    reasonText: "This measure is taken as part of due diligence and control obligations.",
+    detailText: "For reasons related to the confidentiality of procedures, we are unable to provide further details at this stage. In accordance with European regulations on anti-money laundering and terrorist financing (Directive (EU) 2015/849 – AMLD), a value-added tax and processing fee of €765 may be applied to cover financial transaction control and monitoring operations.",
+    verificationItems: [
+      "Verification of the beneficiary's and sender's identity",
+      "Review of supporting documents regarding the origin of funds",
+      "Administrative processing of detected alerts and anomalies",
+      "Compliance with national and European financial vigilance obligations"
+    ],
+    notice: "Without regularization or provision of requested documentation, the complete processing of the transaction cannot be finalized.",
+    sections: "Sections",
+    emitter: "Sender",
+    beneficiary: "Beneficiary",
+    reason: "Reason",
+    reasonShort: "Suspicion requiring AML verifications — fees indicated: €765",
+    legalTitle: "Legal Notice",
+    legalText: "Secure platform for financial operations processing. All data is protected in accordance with European standards.",
+    contactTitle: "For further information:",
+    contactLink: "Contact — TRACFINN Service",
+    securedBy: "Secured by HTTPS",
+    encrypted: "Encrypted Data"
+  },
+  da: {
+    organization: "TRACFINN",
+    subtitle: "Efterretningsbehandling og Aktion Mod Hemmelige Finansielle Kredsløb",
+    languageLabel: "Sprog",
+    title: "Midlertidig Suspendering af en Overførselsordre",
+    reference: "Reference",
+    date: "Dato",
+    clientInfo: "Klientinformation",
+    transferBank: "Overførselsbank",
+    emitterAccount: "Afsenderkonto",
+    feesToPay: "Angivne gebyrer",
+    suspensionReason: "Årsag til suspension og AML-gebyrer",
+    reasonText: "Denne foranstaltning træffes som led i due diligence- og kontrolforpligtelser.",
+    detailText: "Af hensyn til fortroligheden af procedurerne er vi ikke i stand til at give yderligere detaljer på nuværende tidspunkt. I overensstemmelse med europæiske regler om hvidvaskning af penge og terrorfinansiering (Direktiv (EU) 2015/849 – AMLD) kan en moms og behandlingsgebyr på €765 anvendes til at dække kontrol- og overvågningsoperationer af finansielle transaktioner.",
+    verificationItems: [
+      "Verifikation af modtagerens og afsenderens identitet",
+      "Gennemgang af støttedokumenter vedrørende midlernes oprindelse",
+      "Administrativ behandling af opdagede advarsler og anomalier",
+      "Overholdelse af nationale og europæiske finansielle vigilansforpligtelser"
+    ],
+    notice: "Uden regularisering eller levering af anmodet dokumentation kan den komplette behandling af transaktionen ikke færdiggøres.",
+    sections: "Sektioner",
+    emitter: "Afsender",
+    beneficiary: "Modtager",
+    reason: "Årsag",
+    reasonShort: "Mistanke kræver AML-verifikationer — gebyrer angivet: €765",
+    legalTitle: "Juridisk Meddelelse",
+    legalText: "Sikker platform til behandling af finansielle operationer. Alle data er beskyttet i overensstemmelse med europæiske standarder.",
+    contactTitle: "For yderligere information:",
+    contactLink: "Kontakt — TRACFINN Service",
+    securedBy: "Sikret med HTTPS",
+    encrypted: "Krypterede Data"
+  },
+  de: {
+    organization: "TRACFINN",
+    subtitle: "Nachrichtenverarbeitung und Maßnahmen Gegen Klandestine Finanzkreisläufe",
+    languageLabel: "Sprache",
+    title: "Mitteilung über die vorübergehende Aussetzung eines Überweisungsauftrags",
+    reference: "Referenz",
+    date: "Datum",
+    clientInfo: "Kundeninformationen",
+    transferBank: "Überweisungsbank",
+    emitterAccount: "Absenderkonto",
+    feesToPay: "Angegebene Gebühren",
+    suspensionReason: "Grund für die Aussetzung und AML-Gebühren",
+    reasonText: "Diese Maßnahme wird im Rahmen der Sorgfaltspflichten und Kontrollverpflichtungen ergriffen.",
+    detailText: "Aus Gründen der Vertraulichkeit der Verfahren können wir zu diesem Zeitpunkt keine weiteren Einzelheiten mitteilen. In Übereinstimmung mit den europäischen Vorschriften zur Bekämpfung von Geldwäsche und Terrorismusfinanzierung (Richtlinie (EU) 2015/849 – AMLD) kann eine Mehrwertsteuer und Bearbeitungsgebühr von 765 € erhoben werden, um Kontroll- und Überwachungsvorgänge von Finanztransaktionen abzudecken.",
+    verificationItems: [
+      "Überprüfung der Identität des Begünstigten und des Absenders",
+      "Prüfung der Belege bezüglich der Herkunft der Mittel",
+      "Administrative Bearbeitung erkannter Warnungen und Anomalien",
+      "Einhaltung nationaler und europäischer Finanzüberwachungspflichten"
+    ],
+    notice: "Ohne Regularisierung oder Vorlage der angeforderten Unterlagen kann die vollständige Bearbeitung der Transaktion nicht abgeschlossen werden.",
+    sections: "Abschnitte",
+    emitter: "Absender",
+    beneficiary: "Begünstigter",
+    reason: "Grund",
+    reasonShort: "Verdacht erfordert AML-Überprüfungen — Gebühren angegeben: 765 €",
+    legalTitle: "Rechtlicher Hinweis",
+    legalText: "Sichere Plattform für die Abwicklung von Finanzoperationen. Alle Daten sind gemäß europäischen Standards geschützt.",
+    contactTitle: "Für weitere Informationen:",
+    contactLink: "Kontakt — TRACFINN Service",
+    securedBy: "Gesichert durch HTTPS",
+    encrypted: "Verschlüsselte Daten"
+  },
+  lt: {
+    organization: "TRACFINN",
+    subtitle: "Žvalgybos Apdorojimas ir Veiksmai Prieš Slaptas Finansines Grandines",
+    languageLabel: "Kalba",
+    title: "Laikino Pervedimo Orderio Sustabdymo Pranešimas",
+    reference: "Nuoroda",
+    date: "Data",
+    clientInfo: "Kliento Informacija",
+    transferBank: "Pervedimo Bankas",
+    emitterAccount: "Siuntėjo Sąskaita",
+    feesToPay: "Nurodyti mokėtini mokesčiai",
+    suspensionReason: "Sustabdymo priežastis ir AML mokesčiai",
+    reasonText: "Ši priemonė taikoma kaip dalis uolios patikros ir kontrolės įsipareigojimų.",
+    detailText: "Dėl procedūrų konfidencialumo priežasčių šiame etape negalime pateikti išsamesnės informacijos. Pagal Europos pinigų plovimo ir terorizmo finansavimo prevencijos reglamentus (Direktyva (ES) 2015/849 – AMLD), 765 € pridėtinės vertės mokestis ir apdorojimo mokestis gali būti taikomi finansinių sandorių kontrolės ir stebėjimo operacijoms padengti.",
+    verificationItems: [
+      "Gavėjo ir siuntėjo tapatybės patvirtinimas",
+      "Lėšų kilmės patvirtinančių dokumentų peržiūra",
+      "Aptiktų įspėjimų ir anomalijų administracinis apdorojimas",
+      "Nacionalinių ir Europos finansinio budumo įsipareigojimų laikymasis"
+    ],
+    notice: "Be reguliarizavimo ar prašomų dokumentų pateikimo, visiško sandorio apdorojimo užbaigti negalima.",
+    sections: "Skyriai",
+    emitter: "Siuntėjas",
+    beneficiary: "Gavėjas",
+    reason: "Priežastis",
+    reasonShort: "Įtarimas reikalaujantis AML patikrinimų — nurodyti mokesčiai: 765 €",
+    legalTitle: "Teisinis Pranešimas",
+    legalText: "Saugi finansinių operacijų apdorojimo platforma. Visi duomenys saugomi pagal Europos standartus.",
+    contactTitle: "Dėl išsamesnės informacijos:",
+    contactLink: "Kontaktai — TRACFINN Tarnyba",
+    securedBy: "Apsaugota HTTPS",
+    encrypted: "Užšifruoti Duomenys"
   }
 };
 
@@ -116,52 +176,78 @@ const Index = () => {
   const [lang, setLang] = useState<Language>("fr");
   const t = translations[lang];
 
-  const toggleLanguage = () => {
-    setLang(lang === "fr" ? "sk" : "fr");
-  };
+  const languages: { code: Language; label: string }[] = [
+    { code: "fr", label: "Français" },
+    { code: "en", label: "English" },
+    { code: "da", label: "Dansk" },
+    { code: "de", label: "Deutsch" },
+    { code: "lt", label: "Lietuvių" }
+  ];
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-b from-[#f7f9fb] to-[#f1f5f9]">
       <div className="w-full max-w-[900px]">
         <div className="bg-white rounded-lg shadow-[0_8px_24px_rgba(11,43,74,0.08)] overflow-hidden border border-[rgba(11,43,74,0.06)]">
           {/* Header */}
-          <header className="bg-gradient-to-r from-[#0b2b4a] to-[#143852] text-white p-5 flex gap-4 items-center flex-wrap">
-            <div className="flex-1 flex items-center gap-4">
-              <div className="w-[72px] h-[72px] bg-gradient-to-b from-[#0f3b63] to-[#09263e] rounded-lg flex items-center justify-center font-bold text-[10px]">
-                LOGO
-              </div>
-              <div className="leading-tight">
-                <div className="text-xs opacity-95 tracking-wider">Service de Contrôle — (Simulation)</div>
-                <div className="text-sm font-bold mt-1.5">Ministère de l'Économie et des Finances — (Simulation)</div>
-                <div className="text-xs opacity-90 mt-1.5">
-                  <strong>DOCUMENT SIMULÉ — NON OFFICIEL</strong>
+          <header className="bg-gradient-to-r from-[#0b2b4a] to-[#143852] text-white p-5">
+            <div className="flex gap-4 items-center flex-wrap justify-between">
+              <div className="flex items-center gap-4">
+                <img 
+                  src={tracfinnLogo} 
+                  alt="TRACFINN Logo" 
+                  className="w-[72px] h-[72px] rounded-lg object-cover"
+                />
+                <div className="leading-tight">
+                  <div className="text-lg font-bold tracking-wider">{t.organization}</div>
+                  <div className="text-xs opacity-95 mt-2 max-w-[400px]">{t.subtitle}</div>
                 </div>
               </div>
+              <div className="flex items-center gap-3">
+                <select 
+                  value={lang} 
+                  onChange={(e) => setLang(e.target.value as Language)}
+                  className="bg-white/10 text-white px-3 py-1.5 rounded-md text-sm font-semibold border border-white/20 hover:bg-white/20 transition-colors cursor-pointer"
+                  aria-label={t.languageLabel}
+                >
+                  {languages.map(l => (
+                    <option key={l.code} value={l.code} className="bg-[#0b2b4a] text-white">
+                      {l.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-            <div className="bg-[#ffdede] text-[#7a1b1b] px-2.5 py-1.5 rounded-md font-bold text-[13px]">
-              SIMULATION — DOCUMENT NON OFFICIEL
+            <div className="flex gap-3 mt-4 text-xs opacity-90 flex-wrap">
+              <div className="flex items-center gap-1.5">
+                <Shield className="w-4 h-4" />
+                <span>{t.securedBy}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Lock className="w-4 h-4" />
+                <span>{t.encrypted}</span>
+              </div>
             </div>
           </header>
 
           {/* Main Content */}
           <main className="p-6">
             <h1 className="text-[#0b2b4a] text-xl font-semibold mb-3.5">
-              Notification de suspension temporaire d'un ordre de virement
+              {t.title}
             </h1>
 
             <div className="flex gap-3 flex-wrap mb-4">
               <div className="bg-[#e6eef8] text-[#0b2b4a] px-3 py-2 rounded-full font-semibold text-[13px]">
-                Référence : SIM-2025-0001
+                {t.reference} : SIM-2025-0001
               </div>
               <div className="bg-[#e6eef8] text-[#0b2b4a] px-3 py-2 rounded-full font-semibold text-[13px]">
-                Date : <strong>29/10/2025</strong>
+                {t.date} : <strong>29/10/2025</strong>
               </div>
             </div>
 
             <section className="border-t border-[#eef2f6] pt-4.5">
               <div className="grid md:grid-cols-2 gap-4.5">
                 <div className="bg-[#fbfdff] p-3.5 rounded-lg border border-[#eef3f8]">
-                  <h3 className="text-[13px] text-[#6b7280] mb-2">Informations du client</h3>
+                  <h3 className="text-[13px] text-[#6b7280] mb-2">{t.clientInfo}</h3>
                   <p className="font-semibold text-[#0f1724] text-[15px]">LONE JANET MORTENSEN</p>
                   <p className="font-semibold mt-2">REVOLUT BANK UAB</p>
                   <p className="font-bold mt-1.5">IBAN : LT87 3250 0551 0360 8347</p>
@@ -170,50 +256,49 @@ const Index = () => {
                 </div>
 
                 <div className="bg-[#fbfdff] p-3.5 rounded-lg border border-[#eef3f8]">
-                  <h3 className="text-[13px] text-[#6b7280] mb-2">Banque chargée du transfert</h3>
+                  <h3 className="text-[13px] text-[#6b7280] mb-2">{t.transferBank}</h3>
                   <p className="font-semibold text-[#0f1724] text-[15px]">ISMO PAY</p>
-                  <p className="font-bold mt-2">Compte émetteur : EUR 0163703574</p>
-                  <p className="text-[#6b7280] text-[13px] mt-2.5">
-                    Frais à payer indiqués : 765 € (taxe sur valeur ajoutée et traitement)
+                  <p className="font-bold mt-2">{t.emitterAccount} : EUR 0163703574</p>
+                  <p className="text-[#dc2626] font-bold text-[15px] mt-2.5">
+                    {t.feesToPay} : 765 € (taxe sur valeur ajoutée et traitement)
                   </p>
                 </div>
 
                 <div className="md:col-span-2 bg-[#fbfdff] p-3.5 rounded-lg border border-[#eef3f8]">
-                  <h3 className="text-[13px] text-[#6b7280] mb-2">Motif de la suspension et frais AML</h3>
+                  <h3 className="text-[13px] text-[#6b7280] mb-2">{t.suspensionReason}</h3>
                   <p className="font-semibold text-[#0f1724]">
-                    Cette mesure est prise dans le cadre des obligations de vigilance et de contrôle.
+                    {t.reasonText}
                   </p>
                   <div className="mt-2.5 text-[#6b7280] leading-relaxed">
-                    Pour des raisons liées à la confidentialité des procédures, nous ne sommes pas en mesure de fournir davantage de détails à ce stade. Conformément aux régulations européennes en matière de lutte contre le blanchiment de capitaux et le financement du terrorisme (Directive (UE) 2015/849 – AMLD), une taxe sur valeur ajoutée et de traitement de 765 € peut être appliquée pour couvrir les opérations de contrôle et de suivi des transactions financières.
+                    {t.detailText}
                   </div>
                   <ul className="mt-2.5 text-[#6b7280] leading-relaxed list-disc pl-5">
-                    <li>Vérification de l'identité du bénéficiaire et de l'émetteur du virement</li>
-                    <li>Examen des documents justificatifs relatifs à l'origine des fonds</li>
-                    <li>Traitement administratif des alertes et anomalies détectées</li>
-                    <li>Mise en conformité avec les obligations nationales et européennes de vigilance financière</li>
+                    {t.verificationItems.map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))}
                   </ul>
                   <div className="bg-[#fff8e6] border-l-4 border-[#f6c85f] p-3 rounded-md mt-3.5 text-sm text-[#5b4a00]">
-                    Sans régularisation ou fourniture des justificatifs demandés, le traitement complet de la transaction ne peut être finalisé.
+                    {t.notice}
                   </div>
                 </div>
               </div>
             </section>
 
             <section className="border-t border-[#eef2f6] pt-4.5 mt-4.5">
-              <h2 className="text-base text-[#6b7280] mb-3">Sections</h2>
+              <h2 className="text-base text-[#6b7280] mb-3">{t.sections}</h2>
               <div className="flex gap-3 flex-wrap">
                 <div className="flex gap-2.5 items-start bg-white rounded-lg p-3 border border-[#eef3f8] flex-1 min-w-[200px]">
                   <Building2 className="w-7 h-7 flex-shrink-0 opacity-90 text-[#0b2b4a]" />
                   <div>
-                    <h4 className="text-[13px] text-[#6b7280] mb-0">Émetteur</h4>
-                    <p className="font-bold text-sm mt-1.5">ISMO PAY — Compte émetteur EUR 0163703574</p>
+                    <h4 className="text-[13px] text-[#6b7280] mb-0">{t.emitter}</h4>
+                    <p className="font-bold text-sm mt-1.5">ISMO PAY — {t.emitterAccount} EUR 0163703574</p>
                   </div>
                 </div>
 
                 <div className="flex gap-2.5 items-start bg-white rounded-lg p-3 border border-[#eef3f8] flex-1 min-w-[200px]">
                   <User className="w-7 h-7 flex-shrink-0 opacity-90 text-[#0b2b4a]" />
                   <div>
-                    <h4 className="text-[13px] text-[#6b7280] mb-0">Bénéficiaire</h4>
+                    <h4 className="text-[13px] text-[#6b7280] mb-0">{t.beneficiary}</h4>
                     <p className="font-bold text-sm mt-1.5">LONE JANET MORTENSEN — REVOLUT BANK UAB</p>
                   </div>
                 </div>
@@ -221,8 +306,8 @@ const Index = () => {
                 <div className="flex gap-2.5 items-start bg-white rounded-lg p-3 border border-[#eef3f8] flex-1 min-w-[200px]">
                   <FileText className="w-7 h-7 flex-shrink-0 opacity-90 text-[#0b2b4a]" />
                   <div>
-                    <h4 className="text-[13px] text-[#6b7280] mb-0">Motif</h4>
-                    <p className="font-bold text-sm mt-1.5">Suspicion nécessitant vérifications AML — frais indiqués : 765 €</p>
+                    <h4 className="text-[13px] text-[#6b7280] mb-0">{t.reason}</h4>
+                    <p className="font-bold text-sm mt-1.5 text-[#dc2626]">{t.reasonShort}</p>
                   </div>
                 </div>
               </div>
@@ -232,14 +317,14 @@ const Index = () => {
           {/* Footer */}
           <footer className="p-3.5 bg-[#fbfdff] border-t border-[#eef2f6] flex justify-between gap-3 items-center text-[13px] text-[#6b7280] flex-wrap">
             <div className="max-w-[70%]">
-              <div className="font-bold mb-1.5">Mentions légales</div>
-              <div>
-                Document <strong>simulé</strong> à titre informatif uniquement. Il n'a aucune valeur juridique et ne remplace aucune notification officielle.
-              </div>
+              <div className="font-bold mb-1.5">{t.legalTitle}</div>
+              <div>{t.legalText}</div>
             </div>
             <div className="text-right">
-              <div className="text-[13px] text-[#6b7280]">Pour toute information complémentaire :</div>
-              <div className="font-bold text-[#0b2b4a] underline">Contact — Service de Simulation (exemple)</div>
+              <div className="text-[13px] text-[#6b7280]">{t.contactTitle}</div>
+              <div className="font-bold text-[#0b2b4a] underline cursor-pointer hover:text-[#143852] transition-colors">
+                {t.contactLink}
+              </div>
             </div>
           </footer>
         </div>
